@@ -1,0 +1,16 @@
+{
+  "name": "gis_term",
+  "version": "1.0.0",
+  "description": "GIS Term Project",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Kovalsky",
+  "license": "ISC",
+  "dependencies": {
+    "twit": "~2.2.5",
+    "mysql": "~2.13.0",
+    "async": "~2.3.0"
+  }
+}
