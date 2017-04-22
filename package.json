@@ -9,8 +9,10 @@
   "author": "Michael Kovalsky",
   "license": "ISC",
   "dependencies": {
-    "twit": "~2.2.5",
+    "async": "~2.3.0",
+    "ml-sentiment": "^2.0.7",
     "mysql": "~2.13.0",
-    "async": "~2.3.0"
+    "twit": "~2.2.5",
+    "watson-developer-cloud": "^2.29.0"
   }
 }

@@ -2,6 +2,33 @@ var
     twit = require('twit'),
     config = require('./config');
 
+var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
+
+var natural_language_understanding = new NaturalLanguageUnderstandingV1({
+  'username': 'f3550111-bd50-4e5f-8d44-8f0cc493c05e',
+  'password': 'XSG0rEW0UOlB',
+  'version_date': '2017-02-27'
+});
+
+
+var parameters = {
+  'text': 'I was born in Tashkent Uzbekistan, it is the Capital of Uzebkistan. Although I was born there, I have no love for my home country.',
+
+  'features': {
+    'entities': {
+      'emotion': true,
+      'sentiment': true,
+      'limit': 2
+    },
+    'keywords': {
+      'emotion': true,
+      'sentiment': true,
+      'limit': 2
+    }
+  }
+}
+
+
 var mysql = require("mysql");
 var async = require("async");
 var Twitter = new twit(config);
@@ -21,7 +48,7 @@ var con = mysql.createConnection(
 async.series([
     doConnect,
     searchTweets,
-    insertIntoTable
+    //insertIntoTable
 ]);
 
 
@@ -45,10 +72,10 @@ function insertIntoTable(tweets) {
     
     for(var result in tweets) {
         
-        console.log("Tweet Text: " + tweets[result].text);
+        //console.log("Tweet Text: " + tweets[result].text);
         var parameters = {
             
-            region: 'East_Coast',
+            region: 'Central',
             category: '',
             tweet: tweets[result].text,
             sentiment: '0.0'
@@ -59,7 +86,7 @@ function insertIntoTable(tweets) {
         con.query("INSERT INTO tweet SET ?", parameters, function(err, rows) {
            
             if(err) {
-                console.log("Error inserting: " + err);
+                //console.log("Error inserting: " + err);
             } else {
                 console.log("Successfully Inserted Into Table");
             }
@@ -69,7 +96,21 @@ function insertIntoTable(tweets) {
     }
 }
 
+function calculateSentiment() {
+    
+    natural_language_understanding.analyze(parameters, function(err, response) {
+        if (err)
+            console.log('error:', err);
+        else
+            console.log(JSON.stringify(response, null, 2));
+        }
+    ); 
+}
+
 function searchTweets() {
+    
+    calculateSentiment();
+    
     var params = {
           q: 'since:2017-04-020',  // REQUIRED //goes by year-month-date
           result_type: 'recent',
@@ -83,7 +124,7 @@ function searchTweets() {
             console.log("Error is: " + err);
         } else {
             tweetData = data.statuses;
-            console.log(tweetData);
+            //console.log(tweetData);
             
             insertIntoTable(tweetData);
         }
