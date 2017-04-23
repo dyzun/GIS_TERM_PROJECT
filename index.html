@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta charset="UTF-8">
+        <link rel = "stylesheet" type="text/css" href="../css/index.css">
+        <title>GIS Term Project</title>
+    </head>
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+        
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">4Musketeers</a>
+                </div>
+                <div>
+                    <div class="collapse navbar-collapse" id="myNav">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#submission">Data Form</a></li>
+                            <li><a href="#tweet">Tweet Results</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        
+        <!-- main container -->
+        <div class="container" style="width: 800px%" >
+            <div id="jumboOne" class="jumbotron" style="text-align: center;">
+                <h1>GIS Term Project</h1>
+            </div>
+
+            <form  method="GET" id="submission">
+                <div class="form-group">
+                    <label for="q">Region</label>
+                    <input type="search" class="form-control" id="q" name="q" placeholder="South">
+                </div>
+                
+                 <div class="form-group">
+                    <label for="q">Hashtag</label>
+                    <input type="search" class="form-control" id="q" name="q" placeholder="#godawgs">
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxResults">Max Results:</label>
+                    <input type="number" class="form-control" id="maxResults" name="maxResults" placeholder="0 to 50">
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="hidden">Extra:</label>
+                    <input type="text" class="form-control" id="hidden" name="maxResults" placeholder="0 to 50">
+                </div>
+                <button type="submit" id="submitButton" value="Submit" onclick="buttonClick()">Submit</button>
+            </form>
+
+            <hr>
+            <div class="jumbotron" id="geolocation-results">
+                
+            </div>
+            <hr>
+            <h1 style="text-align: center">Tweet Results</h1>
+            <div style="width: 100%;height: 100%; padding: 5%">
+                <div id="tweet"></div>
+            </div>
+
+        </div>
+    </body>
+</html>
