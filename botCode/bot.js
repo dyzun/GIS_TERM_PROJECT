@@ -12,16 +12,16 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 
 
 var parameters = {
-  'text': 'I was born in Tashkent Uzbekistan, it is the Capital of Uzebkistan. Although I was born there, I have no love for my home country.',
+  'text': 'A most interesting and amusing text indeed, about as amusing as IBMs godawful documentation',
 
   'features': {
     'entities': {
-      'emotion': true,
+      'emotion': false,
       'sentiment': true,
-      'limit': 2
+      'limit': 1
     },
     'keywords': {
-      'emotion': true,
+      'emotion': false,
       'sentiment': true,
       'limit': 2
     }
@@ -98,11 +98,18 @@ function insertIntoTable(tweets) {
 
 function calculateSentiment() {
     
-    natural_language_understanding.analyze(parameters, function(err, response) {
+    natural_language_understanding.analyze(parameters, function(err, data) {
         if (err)
             console.log('error:', err);
-        else
-            console.log(JSON.stringify(response, null, 2));
+        else {
+            var myData = JSON.stringify(data, null, 2);
+            //console.log(myData[0][0][0]);
+            //var json = JSON.stringify(JSON.parse(data));
+            //console.log("Score: " + json);
+            
+            //var prsed = (JSON.parse(data));
+            console.log("Parsed: " + data['keywords'][0]['sentiment'].score);
+            }
         }
     ); 
 }
@@ -114,7 +121,7 @@ function searchTweets() {
     var params = {
           q: 'since:2017-04-020',  // REQUIRED //goes by year-month-date
           result_type: 'recent',
-          count:'100',
+          count:'1',
           lang: 'en'
     }
     
@@ -124,9 +131,9 @@ function searchTweets() {
             console.log("Error is: " + err);
         } else {
             tweetData = data.statuses;
-            //console.log(tweetData);
+            //console.log(data);
             
-            insertIntoTable(tweetData);
+            //insertIntoTable(tweetData);
         }
         
     });
